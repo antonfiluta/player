@@ -30,7 +30,7 @@ body {
     background-color: rgba(255,255,255,0.3);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
-    border-radius: 1.5vw;
+    border-radius: 1vw;
 
     display: flex;
     flex-direction: column;
@@ -156,7 +156,7 @@ body {
 }
 
 .controls button:active {
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.4);
 }
 
 .play-pause-but {
@@ -197,4 +197,82 @@ body {
 
 .controls button.active {
     background: rgba(220, 20, 60, 0.2);
+}
+
+@media screen and (min-width: 1440px) {
+    .player-box {
+        width: 22vw;
+        height: 33vw;
+        padding: 1vw;
+        padding-bottom: 10px;
+        border-radius: 15px;
+        gap: 2vw;
+    }
+    
+    .songImage {
+        width: 17vw;
+        height: 17vw;
+        border-radius: 4px;
+    }
+
+    #songN, #songA {
+        font-size: 26px;
+    }
+    
+    #songN {
+        margin-bottom: 8px;
+    }
+    
+    #songA {
+        font-size: 18px;
+    }
+    
+    .range-box span {
+        top: 20px;
+        font-size: 20px;
+    }
+
+    .controls button {
+        background: rgba(255,255,255,0.2);
+    }
+    
+    .controls button:hover {
+        background: rgba(255,255,255,0.35);
+    }
+    
+    .controls button:active {
+        background: rgba(255,255,255,0.45);
+    }
+
+    .play-pause-but {
+        width: 4.5vw;
+        height: 4.5vw;
+    }
+    
+    #playButton {
+        width: 2.5vw;
+        margin-left: 0.5vw;
+    }
+    
+    .back-next-but {
+        width: 3vw;
+        height: 3vw;
+    }
+    
+    .back-next-but img {
+        margin-right: -0.2vw;
+    }
+    
+    .reverse {
+        margin-left: -0.2vw;
+    }
+    
+    .r-but {
+        width: 2vw;
+        height: 2vw;
+    }
+    
+    .r-but img {
+        width: 45%;
+    }
 }

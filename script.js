@@ -18,6 +18,7 @@ const randomBut = document.getElementsByClassName('random')[0];
 let k = 0;
 let isPlay = false;
 let audio = new Audio(base[k].src);
+audio.currentTime = "0.01";
 
 
 //изменение порядка треков
@@ -50,8 +51,8 @@ const changeSong = x => {
    } else {
       audio.play();
    }
-
-   range.value = '0'
+   
+   audio.currentTime = "0.01";
 }
 
 //включалка & выключалка
@@ -93,7 +94,7 @@ audio.onended = () => {
 //ползунок и время
 audio.ontimeupdate = () => {
     timeNow.innerHTML = `${Math.trunc(audio.currentTime / 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime / 60).toString()}` : Math.trunc(audio.currentTime / 60)}:${Math.trunc(audio.currentTime % 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime % 60).toString()}`: Math.trunc(audio.currentTime % 60).toString()}`;
-    range.value = `${Math.floor(audio.currentTime/audio.duration * 10000)}`
+    range.value = `${Math.floor(audio.currentTime/audio.duration * 10000)}`;
 }
 
 range.onmousedown = () => {
@@ -106,5 +107,6 @@ range.onchange = () => {
     audio.play();
 }
 
-changeSong(0)
+changeSong(0);
 
+range.value = '0';
