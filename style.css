@@ -276,3 +276,93 @@ body {
         width: 45%;
     }
 }
+
+@media screen and (max-width: 900px) {
+    .player-box {
+        width: 80vw;
+        height: 130vw;
+        padding: 4.5vw;
+        padding-bottom: 2vw;
+        border-radius: 2vw;
+        gap: 8vw;
+    }
+    
+    .songImage {
+        width: 65vw;
+        height: 65vw;
+    }
+    
+    #songN, #songA {
+        font-size: 16px;
+    }
+    
+    #songA {
+        font-size: 14px;
+    }
+    
+    .range-box span {
+        top: 20px;
+        font-size: 14px;
+    }
+    
+    #radius {
+        height: 14px;
+        border-radius: 4px;
+    }
+    
+    #radius::-webkit-slider-thumb {
+        height: 14px;
+        width: 14px;
+        margin-top: -5px;
+        box-shadow: calc(-100vmax - 13px) 0 0 100vmax #dc143c;
+        clip-path: polygon(
+            100% 0,
+            2px 0,
+            0 5px,
+            -100vmax 5px,
+            -100vmax 9px,
+            0 9px,
+            2px 100%,
+            100% 100%
+        );
+    }
+    
+    #radius::-moz-range-thumb {
+        height: 13px;
+        width: 13px;
+        margin-top: -5px;
+    }
+    
+    #radius::-webkit-slider-runnable-track {
+        height: 4px;
+        border-radius: 4px;
+    }
+    
+    .play-pause-but {
+        width: 15vw;
+        height: 15vw;
+    }
+    
+    #playButton {
+        width: 9vw;
+        margin-left: 1vw;
+    }
+    
+    .back-next-but {
+        width: 10vw;
+        height: 10vw;
+    }
+    
+    .back-next-but img {
+        margin-right: -0.8vw;
+    }
+    
+    .reverse {
+        margin-left: -0.8vw;
+    }
+    
+    .r-but {
+        width: 6vw;
+        height: 6vw;
+    }
+}
