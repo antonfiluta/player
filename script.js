@@ -40,8 +40,10 @@ const changeSong = x => {
    img.src = base[n].imageSrc;
    setTimeout(() => {
     timeNow.innerHTML = `${Math.trunc(audio.currentTime / 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime / 60).toString()}` : Math.trunc(audio.currentTime / 60)}:${Math.trunc(audio.currentTime % 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime % 60).toString()}`: Math.trunc(audio.currentTime % 60).toString()}`;
-    timeAll.innerHTML = `${Math.trunc(audio.duration / 60).toString().length < 2 ? `0${Math.trunc(audio.duration / 60).toString()}` : Math.trunc(audio.duration / 60)}:${Math.trunc(audio.duration % 60).toString().length < 2 ? `0${Math.trunc(audio.duration % 60).toString()}`: Math.trunc(audio.duration % 60).toString()}`;
    }, 100);
+   audio.onloadeddata = () => {
+    timeAll.innerHTML = `${Math.trunc(audio.duration / 60).toString().length < 2 ? `0${Math.trunc(audio.duration / 60).toString()}` : Math.trunc(audio.duration / 60)}:${Math.trunc(audio.duration % 60).toString().length < 2 ? `0${Math.trunc(audio.duration % 60).toString()}`: Math.trunc(audio.duration % 60).toString()}`;
+   }
    
    if (!isPlay) {
       audio.pause();
