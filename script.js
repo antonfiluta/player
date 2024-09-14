@@ -110,3 +110,15 @@ range.onchange = () => {
 changeSong(0);
 
 range.value = '0';
+
+
+
+let index = 0;
+const body = document.getElementsByTagName('body')[0];
+window.addEventListener('dblclick', () => {
+    index++;
+    setTimeout(() => {
+        body.style.backgroundImage = `url(images/${index%3}.png)`;
+    }, 5)
+  }
+)
