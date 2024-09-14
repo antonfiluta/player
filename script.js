@@ -39,9 +39,6 @@ const changeSong = x => {
 
    isLoad = false;
    audio.src = base[n].src;
-   audio.addEventListener('canplaythrough', () => { 
-     isLoad = true; 
-   });
    
    h1.innerHTML = base[n].name;
    h2.innerHTML = base[n].author;
@@ -51,6 +48,9 @@ const changeSong = x => {
    }, 100);
    audio.onloadeddata = () => {
     timeAll.innerHTML = `${Math.trunc(audio.duration / 60).toString().length < 2 ? `0${Math.trunc(audio.duration / 60).toString()}` : Math.trunc(audio.duration / 60)}:${Math.trunc(audio.duration % 60).toString().length < 2 ? `0${Math.trunc(audio.duration % 60).toString()}`: Math.trunc(audio.duration % 60).toString()}`;
+    if (audio.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        isLoad = true;
+      }
    }
    
    if (!isPlay) {
