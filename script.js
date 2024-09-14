@@ -102,16 +102,20 @@ audio.ontimeupdate = () => {
     }, 50)
 }
 
-range.addEventListener('pointerdown', ()=>{
-    audio.pause();
-    audio.addEventListener('pause', rangeChange);
-    audio.play();
+range.addEventListener('pointerenter', ()=>{
+    if (!audio.paused) {
+        audio.pause();
+        audio.addEventListener('pause', rangeChange);
+        audio.play();
+    }
 })
 
 range.addEventListener('change', () => {
-    audio.pause();
-    audio.addEventListener('pause', rangeChange);
-    audio.play();
+    if (!audio.paused) {
+        audio.pause();
+        audio.addEventListener('pause', rangeChange);
+        audio.play();
+    }
 });
 
 const rangeChange = () => {
