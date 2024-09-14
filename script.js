@@ -33,6 +33,7 @@ const randomSong = () => {
 
 //переключалка
 const changeSong = x => {
+   range.value = '0';
    if (isRandom) x *= 2;
    k += x;
    let n = k % base.length;
@@ -61,7 +62,7 @@ const changeSong = x => {
             audio.play();
             clearInterval(interval);
         }
-      }, 100)
+      }, 1)
    }
    
    audio.currentTime = "0.01";
@@ -77,22 +78,22 @@ const playMusic = () => {
                 audio.play();
                 clearInterval(interval);
                }
-          }, 100)
+          }, 1)
     }
 }
 
 //отслежание проигрывания
-audio.onpause = () => {
+audio.addEventListener('pause', () => {
     playButton.src = 'images/icons/play.png';
     playButton.style.marginLeft = '0.5vw';
     isPlay = false;
-}
+})
 
-audio.onplay = () => {
+audio.addEventListener('play', () => {
     playButton.src = 'images/icons/pause.png'
     playButton.style.marginLeft = '0';
     isPlay = true;
-}
+});
 
 //повтор треков
 let isRepeat = false;
@@ -110,28 +111,31 @@ audio.onended = () => {
          audio.play();
          clearInterval(interval);
         }
-   }, 100)
+   }, 1)
 };
 
 //ползунок и время
 audio.ontimeupdate = () => {
     timeNow.innerHTML = `${Math.trunc(audio.currentTime / 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime / 60).toString()}` : Math.trunc(audio.currentTime / 60)}:${Math.trunc(audio.currentTime % 60).toString().length < 2 ? `0${Math.trunc(audio.currentTime % 60).toString()}`: Math.trunc(audio.currentTime % 60).toString()}`;
-    range.value = `${Math.floor(audio.currentTime/audio.duration * 10000)}`;
+    setTimeout(()=>{
+     range.value = `${Math.floor(audio.currentTime/audio.duration * 10000)}`
+    }, 50)
 }
 
-range.onmousedown = () => {
-    audio.pause()
-}
-
-range.onchange = () => {
+range.addEventListener('pointerdown', ()=>{
     audio.pause();
+    audio.addEventListener('pause', rangeChange);
+    audio.play();
+})
+
+range.addEventListener('change', () => {
+    audio.pause();
+    audio.addEventListener('pause', rangeChange);
+    audio.play();
+});
+
+const rangeChange = () => {
     audio.currentTime = range.value / 10000 * audio.duration;
-    const interval = setInterval(function() {
-        if (isLoad) {
-         audio.play();
-         clearInterval(interval);
-        }
-   }, 100)
 }
 
 changeSong(0);
