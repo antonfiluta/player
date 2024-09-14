@@ -18,9 +18,10 @@ const repeatBut = document.getElementsByClassName('repeat')[0];
 const randomBut = document.getElementsByClassName('random')[0];
 
 let k = 100;
-let isPlay = true;
+let isPlay = false;
 let audio = new Audio(base[k%5].src);
 audio.currentTime = "0.01";
+let isLoad = false;
 
 
 //изменение порядка треков
@@ -35,12 +36,11 @@ const changeSong = x => {
    if (isRandom) x *= 2;
    k += x;
    let n = k % base.length;
-   
-   let isLoad = false;
+
+   isLoad = false;
    audio.src = base[n].src;
    audio.addEventListener('canplaythrough', () => { 
      isLoad = true; 
-     alert(isLoad)
    });
    
    h1.innerHTML = base[n].name;
@@ -56,7 +56,12 @@ const changeSong = x => {
    if (!isPlay) {
       audio.pause();
    } else {
-      audio.play();
+    const interval = setInterval(function() {
+        if (isLoad) {
+            audio.play();
+            clearInterval(interval);
+        }
+      }, 100)
    }
    
    audio.currentTime = "0.01";
@@ -67,7 +72,12 @@ const playMusic = () => {
     if (isPlay) {
         audio.pause();
     } else {
-        audio.play();
+        const interval = setInterval(function() {
+               if (isLoad) {
+                audio.play();
+                clearInterval(interval);
+               }
+          }, 100)
     }
 }
 
@@ -88,14 +98,19 @@ audio.onplay = () => {
 let isRepeat = false;
 const repeatSong = () => {
     isRepeat = !isRepeat;
-    repeatBut.classList.toggle('active')
+    repeatBut.classList.toggle('active');
 }
 
 //когда закончилось
 audio.onended = () => {
     if (isRepeat) changeSong(0);
     if (!isRepeat) changeSong(1);
-    audio.play();
+    const interval = setInterval(function() {
+        if (isLoad) {
+         audio.play();
+         clearInterval(interval);
+        }
+   }, 100)
 };
 
 //ползунок и время
@@ -111,7 +126,12 @@ range.onmousedown = () => {
 range.onchange = () => {
     audio.pause();
     audio.currentTime = range.value / 10000 * audio.duration;
-    audio.play();
+    const interval = setInterval(function() {
+        if (isLoad) {
+         audio.play();
+         clearInterval(interval);
+        }
+   }, 100)
 }
 
 changeSong(0);
