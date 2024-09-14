@@ -21,7 +21,6 @@ let k = 100;
 let isPlay = false;
 let audio = new Audio(base[k%5].src);
 audio.currentTime = "0.01";
-let isLoad = false;
 
 
 //изменение порядка треков
@@ -38,7 +37,6 @@ const changeSong = x => {
    k += x;
    let n = k % base.length;
 
-   isLoad = false;
    audio.src = base[n].src;
    
    h1.innerHTML = base[n].name;
@@ -49,15 +47,12 @@ const changeSong = x => {
    }, 100);
    audio.onloadeddata = () => {
     timeAll.innerHTML = `${Math.trunc(audio.duration / 60).toString().length < 2 ? `0${Math.trunc(audio.duration / 60).toString()}` : Math.trunc(audio.duration / 60)}:${Math.trunc(audio.duration % 60).toString().length < 2 ? `0${Math.trunc(audio.duration % 60).toString()}`: Math.trunc(audio.duration % 60).toString()}`;
-    if (audio.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-        isLoad = true;
-      }
    }
    
    if (!isPlay) {
       audio.pause();
    } else {
-            audio.play();
+      audio.play();
    }
    
    audio.currentTime = "0.01";
@@ -68,7 +63,7 @@ const playMusic = () => {
     if (isPlay) {
         audio.pause();
     } else {
-                audio.play();
+        audio.play();
     }
 }
 
@@ -109,15 +104,19 @@ audio.ontimeupdate = () => {
 
 range.addEventListener('pointerdown', ()=>{
     audio.pause();
-    audio.currentTime = range.value / 10000 * audio.duration;
+    audio.addEventListener('pause', rangeChange);
     audio.play();
 })
 
 range.addEventListener('change', () => {
     audio.pause();
-    audio.currentTime = range.value / 10000 * audio.duration;
+    audio.addEventListener('pause', rangeChange);
     audio.play();
 });
+
+const rangeChange = () => {
+    audio.currentTime = range.value / 10000 * audio.duration;
+}
 
 changeSong(0);
 
