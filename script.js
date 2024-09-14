@@ -2,6 +2,8 @@ const base = [
     {src: 'songs/burning.mp3', name: 'Burning', author: 'Hitsujibungaku', imageSrc: 'images/songsImages/burning.jpg'},
     {src: 'songs/fein.mp3', name: 'FE!N', author: 'Travis Scott', imageSrc: 'images/songsImages/utopia.jpg'},
     {src: 'songs/honeypie.mp3', name: 'Honey pie', author: 'JAWNY', imageSrc: 'images/songsImages/honey.jpg'},
+    {src: 'songs/fenebut2.0.mp3', name: 'Фенебут 2.0', author: 'maptOv', imageSrc: 'images/songsImages/fenebut.webp'},
+    {src: 'songs/ne_dishi.mp3', name: 'Ну и не дыши', author: 'кирюша неспал, Beamerlight', imageSrc: 'images/songsImages/ne_dishi.webp'},
 ]
 
 
@@ -15,9 +17,9 @@ const playButton = document.getElementById('playButton');
 const repeatBut = document.getElementsByClassName('repeat')[0];
 const randomBut = document.getElementsByClassName('random')[0];
 
-let k = 0;
-let isPlay = false;
-let audio = new Audio(base[k].src);
+let k = 100;
+let isPlay = true;
+let audio = new Audio(base[k%5].src);
 audio.currentTime = "0.01";
 
 
@@ -31,10 +33,15 @@ const randomSong = () => {
 //переключалка
 const changeSong = x => {
    if (isRandom) x *= 2;
-   k += x
-   let n = Math.abs(k % 3);
+   k += x;
+   let n = k % base.length;
    
+   let isLoad = false;
    audio.src = base[n].src;
+   audio.addEventListener('canplaythrough', () => { 
+     isLoad = true; 
+     alert(isLoad)
+   });
    
    h1.innerHTML = base[n].name;
    h2.innerHTML = base[n].author;
@@ -108,8 +115,6 @@ range.onchange = () => {
 }
 
 changeSong(0);
-
-range.value = '0';
 
 
 
