@@ -57,12 +57,7 @@ const changeSong = x => {
    if (!isPlay) {
       audio.pause();
    } else {
-    const interval = setInterval(function() {
-        if (isLoad) {
             audio.play();
-            clearInterval(interval);
-        }
-      }, 1)
    }
    
    audio.currentTime = "0.01";
@@ -73,12 +68,7 @@ const playMusic = () => {
     if (isPlay) {
         audio.pause();
     } else {
-        const interval = setInterval(function() {
-               if (isLoad) {
                 audio.play();
-                clearInterval(interval);
-               }
-          }, 1)
     }
 }
 
@@ -106,12 +96,7 @@ const repeatSong = () => {
 audio.onended = () => {
     if (isRepeat) changeSong(0);
     if (!isRepeat) changeSong(1);
-    const interval = setInterval(function() {
-        if (isLoad) {
-         audio.play();
-         clearInterval(interval);
-        }
-   }, 1)
+    audio.play();
 };
 
 //ползунок и время
@@ -124,19 +109,15 @@ audio.ontimeupdate = () => {
 
 range.addEventListener('pointerdown', ()=>{
     audio.pause();
-    audio.addEventListener('pause', rangeChange);
+    audio.currentTime = range.value / 10000 * audio.duration;
     audio.play();
 })
 
 range.addEventListener('change', () => {
     audio.pause();
-    audio.addEventListener('pause', rangeChange);
+    audio.currentTime = range.value / 10000 * audio.duration;
     audio.play();
 });
-
-const rangeChange = () => {
-    audio.currentTime = range.value / 10000 * audio.duration;
-}
 
 changeSong(0);
 
